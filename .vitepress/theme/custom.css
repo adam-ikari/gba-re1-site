@@ -1,0 +1,16 @@
+/* 截图是 240x160 放大出来的, 缩小时必须保持硬边, 不能糊成渐变 */
+.vp-doc img {
+  image-rendering: pixelated;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: #000;
+}
+
+/* 表格里的周期数用等宽, 读长数字不用数位数 */
+.vp-doc table td:nth-child(n + 2) {
+  font-variant-numeric: tabular-nums;
+}
+
+.vp-doc h2 {
+  scroll-margin-top: 5rem;
+}
