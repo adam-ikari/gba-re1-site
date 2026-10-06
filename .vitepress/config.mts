@@ -41,6 +41,7 @@ export default defineConfig({
           items: [
             { text: 'OBJ 精灵层的硬约束', link: '/devlog/sprite-layer' },
             { text: '一颗消失的头: 采样单位与剔除门限', link: '/devlog/texture-uv' },
+            { text: '侧面也得是丧尸: 掠射面的盐椒', link: '/devlog/orientation' },
             { text: '周期测量装置与成本表', link: '/devlog/perf' },
             { text: '房间背景的提取与落位', link: '/devlog/rooms' },
             { text: '调色板: 索引 0 与单张 256 色', link: '/devlog/palette' },
