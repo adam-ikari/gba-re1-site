@@ -398,6 +398,17 @@ python3 tools/bake_face_avg.py            # 默认写 src/generated/face_avg.c, 
 
 `peekshot` 拿错构建的地址会读到 `1,039,220,241` 这种荒谬值, **且不报任何错**。
 
+```bash
+# 房间相机标定(desmume 运行时, 见 devlog/alignment)
+python3 tools/ds_ram.py serve                 # 必须自己 fork desmume: Yama ptrace_scope=1, 只有祖先能读 /proc/PID/mem
+python3 tools/ds_ram.py pos                   # 玩家记录: 9×int16@4096 旋转阵 + 3×int32@4096 世界坐标(20.12 定点)
+python3 tools/ds_align.py poses 14            # 螺旋走位自动采位, 按整帧指纹切分相机器
+python3 tools/ds_align.py fit                 # 逐机位区解地面单应
+#   洋馆餐厅实测: cam0 8 对 RMS 2.67 px / 留一 max 9.7 mean 4.8; cam1 6 对(站位太挤) RMS 8.49 / max 33.4
+#   机位区判据: 同区整帧像素差 <=3.3%、跨区 >=93.1%; 32x24 归一化指纹同区 >=0.955、跨区 <=0.010
+#   缩放律 h_px ∝ 1/w (±12%); 线性律 h=k*(v_feet-v_horizon) R^2=0.09 已证伪
+```
+
 ## 已知没做的
 
 | 项 | 状态 |
@@ -414,3 +425,5 @@ python3 tools/bake_face_avg.py            # 默认写 src/generated/face_avg.c, 
 | 远档脚比框底高 1~2 px | LOD 把脚面的亚像素三角形剔了, 不是投影错。图上不显 |
 | 接触阴影 | 没做。做了能盖掉上一条, 但 Mode 4 下 OBJ 没有逐像素 alpha(索引 0 已是透明), 只能画实心暗块 |
 | `gfx_offscreen` 池 | 零调用点, 已从 16 KB 缩到 8 KB 给近档腾地方 |
+| 产线大厅背景的机位找不到 | 现用大厅背景与 Classic 模式前厅可走区域的**所有**画面指纹相似度 ≤ −0.02; 17×33 滑窗全搜最高 0.183 —— 不是裁剪差, 是另一台相机(那张图顶部 34 行原本是 RE:DS 自己的 HUD, 说明它多半来自过场或 Rebirth 模式)。**待决**: 继续找机位 vs 用已标定机位重烘背景。数与推导见 [站在地板上 §7](/devlog/alignment) |
+| DS 坐标是全局还是每房局部 | 未定。大厅 x 到 7.7、餐厅只到 2.9, 像一个全局帧; 但唯一一次跨房位移对不上步速(走 1.1 单位只读到位移 0.24), 而那步正落在过场冻结期, 不算证据。要判得有一次连续可走地跨过房界 |

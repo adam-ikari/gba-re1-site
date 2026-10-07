@@ -45,6 +45,7 @@ export default defineConfig({
             { text: '对不对: 给渲染器造一把能错的尺子', link: '/devlog/correctness' },
             { text: '周期测量装置与成本表', link: '/devlog/perf' },
             { text: '房间背景的提取与落位', link: '/devlog/rooms' },
+            { text: '站在地板上: 从运行时解房间相机', link: '/devlog/alignment' },
             { text: '调色板: 索引 0 与单张 256 色', link: '/devlog/palette' },
           ],
         },
