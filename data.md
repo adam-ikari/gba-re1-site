@@ -32,6 +32,13 @@
 | — | `-DSMALL_PATH=0`(整条小面通路关掉) | **退化解, 不算结果** | 无图 | 横纵跳变同时 0.00 = 整只被平涂, 不是修好了 |
 | — | 门槛 2(过度平涂)与门槛 8(与 4 看不出差别) | 参考点, 都不是候选 | `graze_three` 三档 = 无过滤 / 门槛 2 / 门槛 4 | 与 B4 同 |
 
+> **2026-10-09: 并排比较的图全部撤下嵌入, 文件一张不删。** 这一页只放单幅画面(出货那一版,
+> 加上每一轮自己的单幅记录), 凡是"同一场景渲两版 / 两种配置并排"的图都不再出现在任何页面正文里。
+> 撤下的 23 个文件: near_before_after、fix_uv_aliasing、fix_head_gate、fix_head_scene、scene_graze_ab、bake_nearest_box、bake_blur12_ab、bake_blur_scene_ab、gameover_commit_ab、room_crop3、graze_three、orient_mirror、dining_scale_ab、demo_zombie_fix_ab、ref_cmp_shipped、faceavg_ref_rows、graze_ladder_new、real_scene_peel_ab、crowd_zombie_ab、smallflat_four_rows、smallflat_pair_ab、mode3_vs_mode4、pal_16_vs_256。上表"本站哪些图属于它"那一列因此读作**文件归属**,
+> 不是"这页能看到"; 每个文件在线上 `/img/<名字>.png` 仍可直接取, 未做物理删除 —— 真要删是一条
+> `git rm`。理由与前首页那张四行图被撤时同一句: **我用来消歧的图自己成了新的歧义源**, 而并排图
+> 的读法总要求读者先弄清"哪边是哪版"。撤图不动任何数字: 每一处比较的数都还在原处的表里。
+
 三件事得说清, 否则这张表自己会变成新的坑:
 
 - **ROM text 那三个数量级(473 KB / 475 KB / 514 KB)不是回归, 是链进去的东西不同**: 514 KB 家族多
@@ -216,8 +223,6 @@
 | 群戏基准稳态 | 20,752 cyc/硬件帧 | **20,752(逐位不变)** |
 | 进场预热 | 111,672,571 cyc | **111,672,571(逐位不变)** |
 | ROM text | 473,632 B | 473,640 B(**+8 B** = 两条 `bl`) |
-
-![死亡切换帧: 上 = 修前(主角压在结算字上), 下 = 修后 · **B6**](/img/gameover_commit_ab.png)
 
 原因和修法写在 [技术记录 → OBJ 精灵层的硬约束 §8](/devlog/sprite-layer)。
 
