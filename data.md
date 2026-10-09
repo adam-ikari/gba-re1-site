@@ -25,9 +25,10 @@
 | **B5** | B4 + 纹理 NEAREST → BOX 面积平均 | 已被取代 | `bake_nearest_box` 下行(下行=本档, 上行=B4) | 三项**逐位同 B4**(纯数据改动) |
 | **B6** | B5 + 半径 1.2 px 高斯; 同轮补上死亡切换帧的精灵残留(+8 B) | 已被取代 | `bake_blur12_ab` 右列、`bake_blur_scene_ab` 右列、`play_real`、`gameover_commit_ab`、`ref_cmp_shipped`、`orient_sheet_prod`、`scene_crowd_fixed`(首页头图的前身) | 473,640 B / 20,752 / 111,672,571 |
 | **B7** | B6 + 平涂代表色换成离线**足迹面积平均**(758 B)+ 跨度**剥幽灵** | 画面口径**仍等于出货** | `scene_crowd_current`、`play_hall_new`、`crowd_zombie_ab` 中列、`real_scene_peel_ab` 中列、`faceavg_ref_rows`、`graze_ladder_new` | 475,064 B / 20,752 / **110,443,764**([对不对 §8.6](/devlog/correctness)) |
-| **B8** | B7 + 真房间背景落位 + 玩法态体量与遮挡那一批。**群戏画面与 B7 逐位相同**(今日实测 0 / 345,600 像素差) | **当前出货** md5 `71f3ad4bae56d3acc9df277799d1604a` | `dining_cam0_feet`、`dining_scale_ab`、`demo_zombie_fix_ab` | **514,588 B / 20,357 / 110,443,619**(2026-10-09 对这颗 ROM 复测) |
+| **B8** | B7 + 真房间背景落位 + 玩法态体量与遮挡那一批。**群戏画面与 B7 逐位相同**(今日实测 0 / 345,600 像素差) | **出货画面口径**(构建本身已被 B11 取代) md5 `71f3ad4bae56d3acc9df277799d1604a` | `dining_cam0_feet`、`dining_scale_ab`、`demo_zombie_fix_ab` | **514,588 B / 20,357 / 110,443,619**(2026-10-09 对这颗 ROM 复测) |
 | **B9** | B8 + 小面通路也吃门槛 4(`ZS_SMALL_FLAT`) | **候选·未裁**, 默认关 | `smallflat_four_rows` 第二行、`smallflat_pair_ab` | 514,708 B / 20,357 / **110,206,500**([对不对 §10](/devlog/correctness)) |
 | **B10** | B8 + level 0 退到 blur 0.8(与 B9 同时打开才成立) | 候选·未裁 | `smallflat_four_rows` 第三行 | 未单列 |
+| **B11** | B8 + **删掉立方体拼的主角占位 humanoid** —— 玩法态主角没有画面了。**群戏画面与 B8 逐位相同**(900 帧 0 / 38,400 像素差) | **最新·出货构建** | `play_no_avatar`。注意: 玩法态那两张旧图 `play_real`(B6)、`play_hall_new`(B7) 画面正中那只灰盒**就是这次删掉的东西**, 它们仍是各自那轮的记录, 不再代表玩法态 | 510,324 B / 稳态**逐位同 B8**(同一 900 帧窗口六粗槽合计 **10,165,891 cyc** 一字不差) / 未单列([对不对 §11](/devlog/correctness)) |
 | — | B8 + 软件 mip 2 / 3 档 | **已证伪**, 产线不动 | 无图, 只有表([对不对 §9](/devlog/correctness)) | 518,956 / 523,140 B(装得下, 上限 524,288) |
 | — | `-DSMALL_PATH=0`(整条小面通路关掉) | **退化解, 不算结果** | 无图 | 横纵跳变同时 0.00 = 整只被平涂, 不是修好了 |
 | — | 门槛 2(过度平涂)与门槛 8(与 4 看不出差别) | 参考点, 都不是候选 | `graze_three` 三档 = 无过滤 / 门槛 2 / 门槛 4 | 与 B4 同 |
