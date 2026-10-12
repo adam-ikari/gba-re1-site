@@ -746,6 +746,13 @@ zbuffer 与产线不同(跨度整块不写), 所以小面命中数**不完全等
 (`gs_flat`)与该面本来就没纹理(`tex_id>=2`), 任务 10 要挪走的只有前者。`flat` 的来路是读一次面常量
 分叉, 不加参数、不改调用约定(加参数会把 8 个属性全推一次栈, 而那正是这条通路要量的东西)。
 共十一颗构建, 全部按[上一节](/devlog/alignment)那条事件间窗口(`frames` 恰好 +2)逐姿态配对相减。
+八位 md5: `ctl 3144e162` / `split 76adb827` / `ftex 98a0309e` / `fflat 6143821b` /
+`pro-ftex f8939f6b` / `pro-fflat 4b07bba0` / `nospan c49ef95e` / `ns-nospan 3b31e949` /
+`ns-pro a827c01b` / `inline b9c1c0c7` / `pro-ctl c18ba744`(前缀依次是
+`-DZS_PATH_SPLIT` / `-DZS_FORCE_TEX` / `-DZS_FORCE_FLAT` / `…+ZS_SPAN_PROLOGUE` /
+`-DZS_NO_SPAN_CALL` / `…+ZS_NO_SMALL_FILL` / `ZS_FORCE_FLAT+ZS_SPAN_PROLOGUE+ZS_NO_SMALL_FILL` /
+`-DZS_SPAN_INLINE` / `-DZS_SPAN_PROLOGUE` 单独开)。全部以 B13 产线口径为基座
+(`ZS_ROOM=4 ZS_CROWD_BENCH ZS_DEMO_WALK ZS_SMALL_FLAT SMALL_SCAN_MAX=16`)。
 
 **换了对照口径**: 槽位从 18 涨到 24 会改 `.bss` 与 `perf_dump` 的 blob, 对照 ROM 从
 `ec9fc56d…` 变成 `3144e162…`, "与 B13 逐字节相同"这条判据用不了了。改成**行为复现**: 新对照那颗把
